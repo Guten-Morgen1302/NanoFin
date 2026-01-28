@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceFrenzy - Financial Scenario Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #000 0%, #1a0033 50%, #000 100%);
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        .game-container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                linear-gradient(to right, rgba(0, 255, 150, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 150, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(0, 255, 150, 0.8);
+        }
+
+        .header h1 {
+            font-size: 48px;
+            color: #00ff96;
+            margin-bottom: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { text-shadow: 0 0 10px rgba(0, 255, 150, 0.5); }
+            50% { text-shadow: 0 0 30px rgba(0, 255, 150, 1); }
+        }
+
+        .game-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff96;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 150, 0.3);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 0 25px rgba(0, 255, 150, 0.6);
+            transform: translateY(-5px);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            color: #00ff96;
+            font-weight: bold;
+        }
+
+        .game-main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .stocks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stock-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #ff6b6b;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stock-card:hover {
+            border-color: #ffa500;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+            transform: scale(1.05);
+        }
+
+        .stock-card.owned {
+            border-color: #00ff96;
+            background: rgba(0, 255, 150, 0.1);
+        }
+
+        .stock-ticker {
+            font-size: 20px;
+            color: #ffa500;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .stock-price {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .stock-change {
+            font-size: 14px;
+            padding: 5px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .stock-change.positive {
+            color: #00ff96;
+            background: rgba(0, 255, 150, 0.2);
+        }
+
+        .stock-change.negative {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.2);
+        }
+
+        .stock-info {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        .btn-trade {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+            border: none;
+            color: white;
+            font-family: 'Press Start 2P', Arial;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-trade:hover {
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-trade:active {
+            transform: translateY(0);
+        }
+
+        .portfolio {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ff96;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .portfolio h2 {
+            color: #00ff96;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .portfolio-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid rgba(0, 255, 150, 0.2);
+            font-size: 14px;
+        }
+
+        .portfolio-item:last-child {
+            border-bottom: none;
+        }
+
+        .game-over {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .game-over.active {
+            display: flex;
+        }
+
+        .game-over-content {
+            text-align: center;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .game-over h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ffa500;
+            text-shadow: 0 0 20px rgba(255, 165, 0, 0.8);
+        }
+
+        .game-over-stats {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff96;
+            padding: 30px;
+            margin: 20px auto;
+            border-radius: 8px;
+            max-width: 500px;
+        }
+
+        .game-over-stat {
+            font-size: 18px;
+            margin: 15px 0;
+            color: #fff;
+        }
+
+        .game-over-stat .label {
+            color: #aaa;
+        }
+
+        .game-over-stat .value {
+            color: #00ff96;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .btn-play-again {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #00ff96, #00cc66);
+            border: none;
+            color: #000;
+            font-family: 'Press Start 2P', Arial;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-play-again:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 150, 0.6);
+            transform: scale(1.05);
+        }
+
+        .day-counter {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #ffa500;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+            .stocks-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>💰 FINANCEFRENZY 💰</h1>
+        </div>
+
+        <div class="day-counter">
+            Day: <span id="dayCounter">1</span> / 30
+        </div>
+
+        <div class="game-stats">
+            <div class="stat-card">
+                <div class="stat-label">Portfolio Value</div>
+                <div class="stat-value" id="portfolioValue">$100,000</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Cash Available</div>
+                <div class="stat-value" id="cashValue">$50,000</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Return</div>
+                <div class="stat-value" id="returnValue">$0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">ROI %</div>
+                <div class="stat-value" id="roiValue">0%</div>
+            </div>
+        </div>
+
+        <div class="game-main">
+            <div class="portfolio">
+                <h2>📊 Your Portfolio</h2>
+                <div id="portfolioList">
+                    <div class="portfolio-item">
+                        <span>Cash</span>
+                        <span id="portfolioCash">$50,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stocks-grid" id="stocksGrid">
+                <!-- Stocks will be generated here -->
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-trade" onclick="nextDay()" style="max-width: 300px; margin: 0 auto; background: linear-gradient(135deg, #00ff96, #00cc66);">
+                    → Next Day
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-over" id="gameOver">
+        <div class="game-over-content">
+            <h2 id="gameOverTitle">Game Over!</h2>
+            <div class="game-over-stats">
+                <div class="game-over-stat">
+                    <span class="label">Final Portfolio Value:</span><br>
+                    <span class="value" id="finalValue">$100,000</span>
+                </div>
+                <div class="game-over-stat">
+                    <span class="label">Total Profit/Loss:</span><br>
+                    <span class="value" id="finalProfit">$0</span>
+                </div>
+                <div class="game-over-stat">
+                    <span class="label">Final ROI:</span><br>
+                    <span class="value" id="finalROI">0%</span>
+                </div>
+            </div>
+            <button class="btn-play-again" onclick="location.reload()">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        const STOCKS = [
+            { ticker: 'TECH', name: 'Tech Corp', volatility: 0.08, trend: 0.002 },
+            { ticker: 'BANK', name: 'National Bank', volatility: 0.04, trend: 0.001 },
+            { ticker: 'RETAIL', name: 'Retail Plus', volatility: 0.06, trend: -0.001 },
+            { ticker: 'HEALTH', name: 'HealthCare Inc', volatility: 0.05, trend: 0.0015 },
+            { ticker: 'ENERGY', name: 'Energy Solutions', volatility: 0.07, trend: 0 },
+        ];
+
+        let gameState = {
+            day: 1,
+            cash: 50000,
+            portfolio: {},
+            stockPrices: {},
+            startingValue: 100000,
+            gameOver: false
+        };
+
+        function initializeGame() {
+            STOCKS.forEach(stock => {
+                gameState.stockPrices[stock.ticker] = 100 + Math.random() * 50;
+                gameState.portfolio[stock.ticker] = 0;
+            });
+            renderGame();
+        }
+
+        function renderGame() {
+            const portfolioValue = calculatePortfolioValue();
+            const totalReturn = portfolioValue - gameState.startingValue;
+            const roi = (totalReturn / gameState.startingValue) * 100;
+
+            document.getElementById('dayCounter').textContent = gameState.day;
+            document.getElementById('portfolioValue').textContent = '$' + portfolioValue.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('cashValue').textContent = '$' + Math.round(gameState.cash).toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('returnValue').textContent = '$' + totalReturn.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('roiValue').textContent = roi.toFixed(1) + '%';
+
+            let portfolioHTML = `<div class="portfolio-item"><span>Cash</span><span id="portfolioCash">$${Math.round(gameState.cash).toLocaleString('en-US', {maximumFractionDigits: 0})}</span></div>`;
+            STOCKS.forEach(stock => {
+                if (gameState.portfolio[stock.ticker] > 0) {
+                    const cost = gameState.portfolio[stock.ticker] * gameState.stockPrices[stock.ticker];
+                    portfolioHTML += `<div class="portfolio-item"><span>${stock.ticker} (${gameState.portfolio[stock.ticker]} shares)</span><span>$${Math.round(cost).toLocaleString('en-US', {maximumFractionDigits: 0})}</span></div>`;
+                }
+            });
+            document.getElementById('portfolioList').innerHTML = portfolioHTML;
+
+            let stocksHTML = '';
+            STOCKS.forEach(stock => {
+                const price = gameState.stockPrices[stock.ticker];
+                const shares = gameState.portfolio[stock.ticker];
+                const owned = shares > 0;
+                const changePercent = (Math.random() - 0.5) * 10;
+
+                stocksHTML += `
+                    <div class="stock-card ${owned ? 'owned' : ''}">
+                        <div class="stock-ticker">${stock.ticker}</div>
+                        <div class="stock-price">$${price.toFixed(2)}</div>
+                        <div class="stock-change ${changePercent >= 0 ? 'positive' : 'negative'}">
+                            ${changePercent >= 0 ? '▲' : '▼'} ${Math.abs(changePercent).toFixed(1)}%
+                        </div>
+                        <div class="stock-info">
+                            ${stock.name}<br>
+                            Owned: ${shares} shares
+                        </div>
+                        <button class="btn-trade" onclick="buyStock('${stock.ticker}')">BUY</button>
+                        <button class="btn-trade" onclick="sellStock('${stock.ticker}')" style="background: linear-gradient(135deg, #ff6b6b, #cc4444); margin-top: 5px;">SELL</button>
+                    </div>
+                `;
+            });
+            document.getElementById('stocksGrid').innerHTML = stocksHTML;
+        }
+
+        function buyStock(ticker) {
+            if (gameState.gameOver) return;
+            const price = gameState.stockPrices[ticker];
+            const shares = Math.floor(gameState.cash / price / 10);
+            if (shares > 0) {
+                const cost = shares * price;
+                gameState.cash -= cost;
+                gameState.portfolio[ticker] += shares;
+                renderGame();
+            }
+        }
+
+        function sellStock(ticker) {
+            if (gameState.gameOver) return;
+            const shares = gameState.portfolio[ticker];
+            if (shares > 0) {
+                const price = gameState.stockPrices[ticker];
+                gameState.cash += shares * price;
+                gameState.portfolio[ticker] = 0;
+                renderGame();
+            }
+        }
+
+        function nextDay() {
+            if (gameState.gameOver) return;
+
+            STOCKS.forEach(stock => {
+                const volatility = stock.volatility * (Math.random() - 0.5);
+                const trend = stock.trend;
+                const change = 1 + volatility + trend;
+                gameState.stockPrices[stock.ticker] *= change;
+                gameState.stockPrices[stock.ticker] = Math.max(gameState.stockPrices[stock.ticker], 10);
+            });
+
+            gameState.day++;
+
+            if (gameState.day > 30) {
+                endGame();
+            } else {
+                renderGame();
+            }
+        }
+
+        function calculatePortfolioValue() {
+            let value = gameState.cash;
+            STOCKS.forEach(stock => {
+                value += gameState.portfolio[stock.ticker] * gameState.stockPrices[stock.ticker];
+            });
+            return value;
+        }
+
+        function endGame() {
+            gameState.gameOver = true;
+            const finalValue = calculatePortfolioValue();
+            const totalProfit = finalValue - gameState.startingValue;
+            const finalROI = (totalProfit / gameState.startingValue) * 100;
+
+            document.getElementById('finalValue').textContent = '$' + finalValue.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('finalProfit').textContent = '$' + totalProfit.toLocaleString('en-US', {maximumFractionDigits: 0});
+            document.getElementById('finalROI').textContent = finalROI.toFixed(1) + '%';
+
+            if (totalProfit > 0) {
+                document.getElementById('gameOverTitle').textContent = '🎉 You Won!';
+            } else if (totalProfit < -20000) {
+                document.getElementById('gameOverTitle').textContent = '😭 Game Over...';
+            } else {
+                document.getElementById('gameOverTitle').textContent = 'Game Over!';
+            }
+
+            document.getElementById('gameOver').classList.add('active');
+        }
+
+        initializeGame();
+    </script>
+</body>
+</html>

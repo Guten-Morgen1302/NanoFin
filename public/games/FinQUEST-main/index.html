@@ -1,0 +1,311 @@
+/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinQuest - Financial Literacy Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #000;
+            background-image: 
+                linear-gradient(to right, rgba(0, 255, 0, 0.15) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 0, 0.15) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        .title {
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00ff00; }
+            to { text-shadow: 0 0 20px #00ff00; }
+        }
+        .level-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ff00;
+            transition: all 0.3s ease;
+        }
+        .level-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+        }
+
+        @keyframes slide {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.module-slider {
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 0;
+}
+
+.module-container {
+    display: flex;
+    gap: 2rem;
+    animation: slide 30s linear infinite;
+}
+
+.module-container:hover {
+    animation-play-state: paused;
+}
+
+.module-card {
+    flex: 0 0 300px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
+}
+
+.module-card:hover {
+    transform: scale(1.05);
+}
+
+
+.module-wrapper {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        padding: 2rem 0;
+    }
+
+    .module-track {
+        display: flex;
+        gap: 2rem;
+        position: relative;
+        width: max-content;
+        animation: slideLeft 10s linear infinite;
+    }
+
+    .module-track:hover {
+        animation-play-state: paused;
+    }
+
+    .module-item {
+        flex: 0 0 300px;
+        transition: transform 0.3s ease;
+    }
+
+    .module-item:hover {
+        transform: scale(1.05);
+    }
+
+    @keyframes slideLeft {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+
+
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="py-8 text-center">
+        <h1 class="title text-4xl md:text-6xl mb-4">FinQuest</h1>
+        <p class="text-green-400 text-lg md:text-xl">Master Your Financial Future</p>
+    </header>
+
+    <!-- Game Levels -->
+    <main class="container mx-auto px-4 py-8">
+        <h2 class="text-green-400 text-3xl text-center mb-8">Game Levels</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Levels 1-8 -->
+            <div class="level-card rounded-lg p-6 text-center">
+                <h2 class="text-green-400 text-xl mb-4">Level 1</h2>
+                <p class="text-gray-400 mb-4">Budget Your First Paycheck</p>
+                <a href="levels/level1.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                    Start Level
+                </a>
+            </div>
+        
+            <!-- Level 2 -->
+            <div class="level-card rounded-lg p-6 text-center">
+                <h2 class="text-green-400 text-xl mb-4">Level 2</h2>
+                <p class="text-gray-400 mb-4">Smart Savings Strategy</p>
+                <a href="levels/level2.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                    Start Level
+                </a>
+            </div>
+        
+            <!-- Level 3 -->
+            <div class="level-card rounded-lg p-6 text-center">
+                <h2 class="text-green-400 text-xl mb-4">Level 3</h2>
+                <p class="text-gray-400 mb-4">Investment Portfolio</p>
+                <a href="levels/level3.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                    Start Level
+                </a>
+            </div>
+        
+            <!-- Level 4 -->
+            <div class="level-card rounded-lg p-6 text-center">
+                <h2 class="text-green-400 text-xl mb-4">Level 4</h2>
+                <p class="text-gray-400 mb-4">Emergency Fund Planning</p>
+                <a href="levels/level4.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                    Start Level
+                </a>
+            </div>
+        
+            <!-- Level 5 -->
+            <div class="level-card rounded-lg p-6 text-center">
+                <h2 class="text-green-400 text-xl mb-4">Level 5</h2>
+                <p class="text-gray-400 mb-4">Tax Management</p>
+                <a href="levels/level5.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                    Start Level
+                </a>
+            </div>
+        
+            <!-- Level 6 -->
+            <div class="level-card rounded-lg p-6 text-center">
+                <h2 class="text-green-400 text-xl mb-4">Level 6</h2>
+                <p class="text-gray-400 mb-4">Debt Management</p>
+                <a href="levels/level6.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                    Start Level
+                </a>
+            </div>
+        
+            <!-- Level 7 -->
+            <div class="level-card rounded-lg p-6 text-center">
+                <h2 class="text-green-400 text-xl mb-4">Level 7</h2>
+                <p class="text-gray-400 mb-4">Retirement Planning</p>
+                <a href="levels/level7.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                    Start Level
+                </a>
+            </div>
+        
+            <!-- Level 8 -->
+            <div class="level-card rounded-lg p-6 text-center">
+                <h2 class="text-green-400 text-xl mb-4">Level 8</h2>
+                <p class="text-gray-400 mb-4">Real Estate Investment</p>
+                <a href="levels/level8.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                    Start Level
+                </a>
+            </div>
+
+            
+        </div>
+    </main>
+
+    <section class="module-section py-12">
+        <h2 class="text-3xl text-green-400 text-center mb-8">Learning Modules</h2>
+        <div class="module-wrapper">
+            <div class="module-track">
+                <!-- Module 1 -->
+                <div class="module-item bg-black bg-opacity-50 p-6 rounded-lg border border-green-600">
+                    <h3 class="text-2xl text-green-400 mb-4">Module 1</h3>
+                    <p class="text-gray-400 mb-4">Budgeting Basics</p>
+                    <a href="Learning/module1.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                        Learn More →
+                    </a>
+                </div>
+    
+                <!-- Module 2 -->
+                <div class="module-item bg-black bg-opacity-50 p-6 rounded-lg border border-green-600">
+                    <h3 class="text-2xl text-green-400 mb-4">Module 2</h3>
+                    <p class="text-gray-400 mb-4">Smart Savings</p>
+                    <a href="Learning/module2.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                        Learn More →
+                    </a>
+                </div>
+    
+                <!-- Module 3 -->
+                <div class="module-item bg-black bg-opacity-50 p-6 rounded-lg border border-green-600">
+                    <h3 class="text-2xl text-green-400 mb-4">Module 3</h3>
+                    <p class="text-gray-400 mb-4">Investment Portfolio</p>
+                    <a href="Learning/module3.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                        Learn More →
+                    </a>
+                </div>
+    
+                <!-- Module 4 -->
+                <div class="module-item bg-black bg-opacity-50 p-6 rounded-lg border border-green-600">
+                    <h3 class="text-2xl text-green-400 mb-4">Module 4</h3>
+                    <p class="text-gray-400 mb-4">Emergency Fund</p>
+                    <a href="Learning/module4.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                        Learn More →
+                    </a>
+                </div>
+    
+                <!-- Module 5 -->
+                <div class="module-item bg-black bg-opacity-50 p-6 rounded-lg border border-green-600">
+                    <h3 class="text-2xl text-green-400 mb-4">Module 5</h3>
+                    <p class="text-gray-400 mb-4">Tax Management</p>
+                    <a href="Learning/module5.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                        Learn More →
+                    </a>
+                </div>
+    
+                <!-- Module 6 -->
+                <div class="module-item bg-black bg-opacity-50 p-6 rounded-lg border border-green-600">
+                    <h3 class="text-2xl text-green-400 mb-4">Module 6</h3>
+                    <p class="text-gray-400 mb-4">Debt Management</p>
+                    <a href="Learning/module6.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                        Learn More →
+                    </a>
+                </div>
+    
+                <!-- Module 7 -->
+                <div class="module-item bg-black bg-opacity-50 p-6 rounded-lg border border-green-600">
+                    <h3 class="text-2xl text-green-400 mb-4">Module 7</h3>
+                    <p class="text-gray-400 mb-4">Retirement Planning</p>
+                    <a href="Learning/module7.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                        Learn More →
+                    </a>
+                </div>
+    
+                <!-- Module 8 -->
+                <div class="module-item bg-black bg-opacity-50 p-6 rounded-lg border border-green-600">
+                    <h3 class="text-2xl text-green-400 mb-4">Module 8</h3>
+                    <p class="text-gray-400 mb-4">Real Estate Investment</p>
+                    <a href="Learning/module8.html" class="inline-block bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-all duration-300">
+                        Learn More →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black bg-opacity-50 mt-16 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-green-400 text-lg mb-4">About FinQuest</h3>
+                    <p class="text-gray-400">Interactive financial literacy through gamification.</p>
+                </div>
+                <div>
+                    <h3 class="text-green-400 text-lg mb-4">Learning Path</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>• Basic Financial Skills</li>
+                        <li>• Investment Strategies</li>
+                        <li>• Advanced Planning</li>
+                        <li>• Wealth Building</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-green-400 text-lg mb-4">Resources</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>• Financial Calculator</li>
+                        <li>• Glossary</li>
+                        <li>• Study Materials</li>
+                        <li>• FAQs</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-green-400 text-lg mb-4">Connect</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>• Support</li>
+                        <li>• Feedback</li>
+                        <li>• Social Media</li>
+                        <li>• Newsletter</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

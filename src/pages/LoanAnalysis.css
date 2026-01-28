@@ -1,0 +1,223 @@
+.analysis-section {
+    min-height: 100vh;
+    background-color: #f5f7fa;
+}
+
+.main-analysis {
+    text-align: center;
+    margin-top: 20px;
+    padding: 30px 20px;
+}
+
+.main-analysis h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.main-analysis h1 span {
+    color: inherit;
+}
+
+.main-analysis p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-top: 10px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.adashboard-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    height: 70px;
+    padding: 0 20px;
+    color: white;
+}
+
+.dashboard-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dashboard-logo i {
+    color: #ffd700;
+}
+
+.dashboard-user-icon {
+    display: flex;
+    align-items: center;
+}
+
+/* Streamlit Container */
+.streamlit-container {
+    margin: 0 20px 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.streamlit-embed {
+    display: block;
+    width: 100%;
+}
+
+/* Loading State */
+.loading-container {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+    color: #667eea;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Fallback Notice */
+.fallback-notice {
+    padding: 15px;
+    background-color: #e8f4f8;
+    border-left: 4px solid #667eea;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #333;
+}
+
+.fallback-notice p {
+    margin: 8px 0;
+}
+
+.fallback-notice code {
+    background-color: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #d63384;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .streamlit-container {
+        margin: 0 15px 15px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-analysis h1 {
+        font-size: 1.8rem;
+    }
+
+    .main-analysis p {
+        font-size: 0.95rem;
+    }
+
+    .adashboard-navbar {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 10px 16px;
+        gap: 10px;
+    }
+
+    .dashboard-logo {
+        font-size: 1.4rem;
+    }
+
+    .streamlit-container {
+        margin: 0 10px 10px;
+        padding: 10px;
+    }
+
+    .fallback-notice {
+        font-size: 12px;
+    }
+}
+    margin-top: 15px;
+    font-size: 13px;
+    color: #333;
+}
+
+.fallback-notice p {
+    margin: 8px 0;
+}
+
+.fallback-notice code {
+    background-color: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #d63384;
+}
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+.open-external-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.open-external-btn:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .main-analysis {
+        width: 98vw;
+        margin: 40px 0px;
+    }
+    .main-analysis h1{
+        font-size: 1.4rem;
+    }
+    .main-analysis p{
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+    .adashboard-navbar div{
+        font-size: 1.5rem;
+    }
+    .loading-container, .error-container, .streamlit-container {
+        margin: 10px;
+        padding: 20px;
+    }
+}

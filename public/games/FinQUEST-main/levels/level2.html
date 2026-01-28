@@ -1,0 +1,223 @@
+2.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 2 - Start Saving for a Goal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #000;
+            background-image: 
+                linear-gradient(to right, rgba(0, 255, 0, 0.15) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 0, 0.15) 1px, transparent 1px);
+            background-size: 50px 50px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 2rem;
+            margin: 0 auto;
+        }
+        .title {
+            color:aqua;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+        .slider-container {
+            position: relative;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+        }
+        .slider {
+            -webkit-appearance: none;
+            height: 16px !important;
+            background: linear-gradient(90deg, #00ff00 0%, #006400 100%);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 32px;
+            height: 32px;
+            background: #00ff00;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+        }
+        .slider::-webkit-slider-thumb:active {
+            transform: scale(0.95);
+        }
+        .slider:hover {
+            height: 18px !important;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+        }
+        .slider-value {
+            position: absolute;
+            top: -30px;
+            background: rgba(10, 21, 10, 0.059);
+            border: 1px solid #00ff00;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transform: translateX(-50%);
+            transition: opacity 0.3s;
+            color: #fff;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .slider:hover + .slider-value {
+            opacity: 1;
+        }
+        .game-info-button {
+            position: fixed;
+            background: rgba(0, 255, 0, 0.2);
+            border: 2px solid #00ff00;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            padding: 0.75rem;
+        }
+        @media (min-width: 768px) {
+            .game-info-button {
+                left: 2rem;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            .game-info-button:hover {
+                background: rgba(0, 255, 0, 0.3);
+                transform: translateY(-50%) scale(1.1);
+            }
+        }
+        @media (max-width: 767px) {
+            .game-info-button {
+                left: 1rem;
+                top: 1rem;
+            }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+        }
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00ff00; }
+            to { text-shadow: 0 0 20px #00ff00; }
+        }
+    </style>
+</head>
+<body>
+    <button class="game-info-button" onclick="toggleGameInfo()">
+        <span class="text-2xl text-green-400">❔</span>
+    </button>
+
+    <div id="gameInfoModal" class="modal">
+        <div class="bg-black border-2 border-green-500 rounded-lg p-8 m-auto max-w-lg">
+            <h3 class="text-2xl text-green-400 mb-6">Level 2: Savings Challenge</h3>
+            <div class="space-y-4 text-gray-300">
+                <p>🎯 Goal: Save $500 across categories</p>
+                <div class="pl-4 space-y-2">
+                    <p>💰 Emergency Fund: Min $200</p>
+                    <p>🎯 Investment: Min $150</p>
+                    <p>🏖️ Vacation: Min $50</p>
+                    <p>
+                     The player has a savings goal of $500. <br>
+                     - They need to allocate money across three categories: <br>
+                     - Emergency Fund 💰 <br>
+                     -  Vacation 🏖️ <br>
+                     - Future Goals 🎯 <br>
+                     The challenge is to meet the exact savings goal without exceeding or falling short.
+                    </p>
+                </div>
+                <p class="text-yellow-400">Total must equal $500!</p>
+            </div>
+            <button onclick="toggleGameInfo()" 
+                    class="mt-6 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded">
+                Got it!
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="title text-4xl md:text-6xl text-center mb-12">LEVEL 2</h1>
+        <h2 class="text-2xl text-center text-green-400 mb-8"> Learn About Savings Challenge </h2>
+        
+        <div class="text-center mb-8">
+            <span class="text-2xl text-yellow-400">Remaining: $<span id="remaining">500</span></span>
+        </div>
+
+        <div class="space-y-12 mb-12">
+            <div>
+                <label class="block mb-6 text-xl text-green-300">💰 Emergency Fund</label>
+                <div class="slider-container">
+                    <input type="range" id="emergency" min="0" max="300" value="0" class="slider w-full">
+                    <div class="slider-value">$<span id="emergencyValueTooltip">0</span></div>
+                    <div class="flex justify-between mt-4">
+                        <span class="text-green-400">$<span id="emergencyValue">0</span></span>
+                        <span class="text-green-400">$300</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <label class="block mb-6 text-xl text-green-300">🎯 Investment</label>
+                <div class="slider-container">
+                    <input type="range" id="investment" min="0" max="200" value="0" class="slider w-full">
+                    <div class="slider-value">$<span id="investmentValueTooltip">0</span></div>
+                    <div class="flex justify-between mt-4">
+                        <span class="text-green-400">$<span id="investmentValue">0</span></span>
+                        <span class="text-green-400">$200</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label class="block mb-6 text-xl text-green-300">🏖️ Vacation</label>
+                <div class="slider-container">
+                    <input type="range" id="vacation" min="0" max="100" value="0" class="slider w-full">
+                    <div class="slider-value">$<span id="vacationValueTooltip">0</span></div>
+                    <div class="flex justify-between mt-4">
+                        <span class="text-green-400">$<span id="vacationValue">0</span></span>
+                        <span class="text-green-400">$100</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="submit-savings" 
+                class="w-full py-4 text-xl bg-green-600 hover:bg-green-700 rounded-lg 
+                       transition-all duration-300 hover:shadow-lg hover:shadow-green-500/50">
+            SUBMIT SAVINGS
+        </button>
+    </div>
+
+    <script>
+        function toggleGameInfo() {
+            const modal = document.getElementById('gameInfoModal');
+            modal.classList.toggle('show');
+        }
+    </script>
+    <script src="../logic/level2.js"></script>
+</body>
+</html>

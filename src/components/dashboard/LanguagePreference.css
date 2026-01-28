@@ -1,0 +1,93 @@
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.sidebar {
+  width: 280px;
+  background-color: #fff;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.language-section,
+.tips-section {
+  margin-bottom: 32px;
+}
+
+.language-section h3,
+.tips-section h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.language-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.language-select:hover {
+  border-color: #667eea;
+}
+
+.language-select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tips-list li {
+  padding: 10px 0;
+  font-size: 14px;
+  color: #555;
+  border-bottom: 1px solid #f0f0f0;
+  line-height: 1.5;
+}
+
+.tips-list li:last-child {
+  border-bottom: none;
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+}

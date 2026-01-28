@@ -1,0 +1,138 @@
+/* Topbar */
+.topbar {
+  height: 80px;
+  background: linear-gradient(90deg, var(--bg-card) 0%, var(--bg-light) 100%);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-lg);
+  gap: var(--spacing-lg);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.menu-toggle:hover {
+  background-color: var(--bg-light);
+  color: var(--primary);
+}
+
+.hamburger {
+  display: inline-block;
+  width: 20px;
+  height: 14px;
+  position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  left: 0;
+  transition: transform var(--transition-base);
+}
+
+.hamburger::before {
+  top: 0;
+}
+
+.hamburger::after {
+  bottom: 0;
+}
+
+.menu-toggle:hover .hamburger::before {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle:hover .hamburger::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.topbar-center {
+  flex: 1;
+  text-align: center;
+}
+
+.topbar-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.notification-bell {
+  position: relative;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform var(--transition-base);
+  padding: var(--spacing-sm);
+}
+
+.notification-bell:hover {
+  transform: scale(1.1);
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--danger);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .topbar {
+    height: 60px;
+    padding: 0 var(--spacing-md);
+  }
+
+  .topbar-title {
+    font-size: 1rem;
+  }
+
+  .topbar-right {
+    gap: var(--spacing-md);
+  }
+}
